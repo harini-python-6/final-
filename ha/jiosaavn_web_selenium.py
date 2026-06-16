@@ -64,6 +64,7 @@ WARMUP_PLAYLIST_LIST = [
 ]
 
 driver = None
+GLOBAL_IS_LOGGED_IN = False
 
 # ---------------------------------------------------------
 # LOGIN STATUS MONITOR
@@ -85,7 +86,7 @@ def is_user_logged_in(web_driver):
                     print(f"  -> Result: ❌ Guest Session detected via element: '{el.text}'")
                     return False
                     
-        print("  -> Result:  Logged In user session detected.")
+        print("  -> Result: ✅ Logged In user session detected.")
         return True
     except Exception:
         return False
@@ -96,7 +97,10 @@ def is_user_logged_in(web_driver):
 # ---------------------------------------------------------
 
 def handle_startup_playback(web_driver):
-    if is_user_logged_in(web_driver):
+    global GLOBAL_IS_LOGGED_IN
+    GLOBAL_IS_LOGGED_IN = is_user_logged_in(web_driver)
+    
+    if GLOBAL_IS_LOGGED_IN:
         print("\n[Startup] Resuming user's existing playback history...")
         click_homepage_play_button(web_driver)
     else:
@@ -173,13 +177,7 @@ def click_green_play_button(web_driver):
 
 def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
     print(f"\n[Automated Queue] Processing Playlist Target: {playlist_name}")
-    
-    # Always drop back to home page to expose a clean, active search layout context
-    try:
-        web_driver.get("https://www.jiosaavn.com/")
-        time.sleep(3.0)
-    except:
-        pass
+    global GLOBAL_IS_LOGGED_IN
 
     search_box = None
     search_strategies = [
@@ -200,7 +198,6 @@ def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
     search_success = False
     if search_box:
         try:
-            # Step 1: Physically target and click inside the box using ActionChains to gain hard focus
             web_driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", search_box)
             time.sleep(0.5)
             
@@ -209,21 +206,18 @@ def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
             time.sleep(0.8)
             
             print("  -> 🧹 Clearing search bar visually via focused shortcut selection...")
-            # Step 2: Clear old text visually using keyboard commands on the active focus ring
             clear_action = ActionChains(web_driver)
             clear_action.key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
             time.sleep(0.5)
             
             print(f"  -> ⌨️  Guaranteed Visual Typing: Rendering '{playlist_name}' character-by-character...")
-            # Step 3: Loop and feed keys via ActionChains context to bypass background DOM injection completely
             for character in playlist_name:
                 type_action = ActionChains(web_driver)
                 type_action.send_keys(character).perform()
-                time.sleep(0.35)  # Deliberate pause to let browser UI frames render the key press
+                time.sleep(0.35)  
                 
             time.sleep(0.6)
             
-            # Step 4: Submit search physically via focus ring execution
             submit_action = ActionChains(web_driver)
             submit_action.send_keys(Keys.RETURN).perform()
             print("  -> Search query submitted visibly.")
@@ -234,17 +228,23 @@ def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
     else:
         print("  -> [Notice] UI Search input framework container not located.")
 
-    # Select the matching item from the search results grid
     ui_click_success = False
     if search_success:
-        print(f"  -> 🔍 Mapping UI layouts to locate your playlist match for: '{playlist_name}'")
-        match_selectors = [
-            f"//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{playlist_name.lower()}')]",
-            f"//h3[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{playlist_name.lower()}')]",
-            "section.playlists a",
-            "section.artists a",
-            "div.c-card a"
-        ]
+        if GLOBAL_IS_LOGGED_IN:
+            print(f"  -> 🔐 [User Logged In] Seeking exact playlist match from 'My Music' for: '{playlist_name}'")
+            match_selectors = [
+                f"//a[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '{playlist_name.lower()}']",
+                f"//section[contains(@class, 'my-music') or contains(@class, 'library')]//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{playlist_name.lower()}')]",
+                f"//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{playlist_name.lower()}')]"
+            ]
+        else:
+            print(f"  -> 👤 [Guest Session] Picking top recommended playlist from global search...")
+            match_selectors = [
+                "section.playlists a",
+                "div.c-card a",
+                f"//a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{playlist_name.lower()}')]"
+            ]
+
         for xpath_selector in match_selectors:
             try:
                 if xpath_selector.startswith("//"):
@@ -257,7 +257,7 @@ def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
                         web_driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
                         time.sleep(1.0)
                         web_driver.execute_script("arguments[0].click();", element)
-                        print(f"  -> ✅ Successfully matched and selected your playlist from search results.")
+                        print(f"  -> ✅ Successfully matched and selected the optimal playlist result.")
                         ui_click_success = True
                         time.sleep(4.0)
                         break
@@ -266,19 +266,16 @@ def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
             except Exception:
                 continue
 
-    # Safety URL fallback only if the item absolutely couldn't be mapped visually on-screen
     if not ui_click_success:
-        print(f"  -> [Fallback] Direct match mapping missed. Direct loading destination URL link: {playlist_url}")
+        print(f"  -> [Fallback] Direct match mapping missed. Direct loading destination URL link...")
         try:
             web_driver.get(playlist_url)
             time.sleep(4.5)
         except Exception as e:
-            print(f"  -> [Warning] Navigation endpoint error encountered: {e}")
+            pass
 
-    # Fire the playlist playback engine
     success = click_green_play_button(web_driver)
     if not success:
-        print("  -> [Warning] Play button unreachable. Triggering keyboard space fallback...")
         try:
             body = web_driver.find_element(By.TAG_NAME, "body")
             body.send_keys(Keys.SPACE)
@@ -291,23 +288,33 @@ def execute_playlist_search_and_play(web_driver, playlist_name, playlist_url):
 # ---------------------------------------------------------
 
 def safe_return_to_home(web_driver):
-    print("\n[Navigation] Hard loading a fresh Home page interface environment...")
+    print("\n[Navigation] Triggering 'Soft Reload' (Visual refresh without killing audio)...")
     try:
-        web_driver.get("https://www.jiosaavn.com/")
-        print("  -> ✅ SUCCESS: Fresh homepage view reload completed smoothly.")
+        # STEP 1: Click a different tab briefly to force the UI to wipe
+        try:
+            podcasts_tab = web_driver.find_element(By.XPATH, "//nav//a[contains(@href, 'podcasts')]")
+            web_driver.execute_script("arguments[0].click();", podcasts_tab)
+            time.sleep(0.8) # Brief pause so the user sees the page physically change
+        except Exception:
+            pass # Ignore if podcast tab isn't found, keep going
+
+        # STEP 2: Click the Home logo to rebuild the home page visually from scratch
+        home_logo = web_driver.find_element(By.CSS_SELECTOR, "a.brand, a.logo, a[href='/']")
+        web_driver.execute_script("arguments[0].click();", home_logo)
+        
+        # STEP 3: Scroll to the absolute top to complete the 'fresh load' illusion
+        web_driver.execute_script("window.scrollTo(0, 0);")
+        
+        print("  -> ✅ SUCCESS: Visual reload complete. Audio continues uninterrupted.")
     except Exception as e:
-        print(f"  -> [Warning] Fresh reload tracking alert: {e}")
+        print(f"  -> [Notice] Soft navigation missed, clicking body to clear focus: {e}")
+        try:
+            body = web_driver.find_element(By.TAG_NAME, "body")
+            web_driver.execute_script("arguments[0].click();", body)
+        except:
+            pass
             
     time.sleep(3.5)
-    
-    try:
-        body = web_driver.find_element(By.TAG_NAME, "body")
-        web_driver.execute_script("arguments[0].click();", body)
-    except Exception:
-        pass
-        
-    print("  -> Resuming initial track audio on homepage frame...")
-    click_homepage_play_button(web_driver)
 
 
 # ---------------------------------------------------------
@@ -341,11 +348,9 @@ def launch_and_attach_to_browser():
 
 def action_search_macro():
     global driver
-    # Picks a completely random playlist from your personal list mapping array
     target_playlist = random.choice(PLAYLIST_LIST)
     if driver:
         execute_playlist_search_and_play(driver, target_playlist["name"], target_playlist["url"])
-
 
 def focus_browser_window():
     global driver
@@ -354,7 +359,6 @@ def focus_browser_window():
             driver.execute_script("window.focus();")
         except:
             pass
-
 
 def close_browser():
     global driver

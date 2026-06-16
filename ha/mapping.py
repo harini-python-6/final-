@@ -15,8 +15,8 @@ JIOSAAVN_ACTION_MAP = {
     "Right Push": "Play / Pause",
     "Right Left": "Previous Track",
     "Right Right": "Next Track",
-    "Right Neutral": "Volume Down",
-    "Right Drop": "Volume Up",
+    "Right Neutral": "Volume Up",
+    "Right Drop": "Volume Down",
     "Right Lift": "Return to Home",
     "Right Pull": "Search Album/Playlist"
 }
