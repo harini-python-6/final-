@@ -1,0 +1,361 @@
+{
+  "pipeline_summary": {
+    "source_file": "bci_dispatched_commands.json",
+    "total_dispatched_frames": 15360,
+    "distinct_gesture_events": 35,
+    "extraction_method": "confidence_peak_per_burst",
+    "sample_rate_hz": 128
+  },
+  "gesture_events": [
+    {
+      "event_id": 1,
+      "sample_id": 1,
+      "timestamp": 0.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.954,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 2,
+      "sample_id": 257,
+      "timestamp": 2.0,
+      "raw_brain_state": "Right Push",
+      "confidence": 0.774,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 3,
+      "sample_id": 897,
+      "timestamp": 7.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.963,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 4,
+      "sample_id": 1153,
+      "timestamp": 9.0,
+      "raw_brain_state": "Right Drop",
+      "confidence": 0.807,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 5,
+      "sample_id": 1793,
+      "timestamp": 14.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.971,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 6,
+      "sample_id": 2049,
+      "timestamp": 16.0,
+      "raw_brain_state": "Right Drop",
+      "confidence": 0.888,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 7,
+      "sample_id": 2689,
+      "timestamp": 21.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.992,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 8,
+      "sample_id": 2945,
+      "timestamp": 23.0,
+      "raw_brain_state": "Right Push",
+      "confidence": 0.836,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 9,
+      "sample_id": 3585,
+      "timestamp": 28.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.957,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 10,
+      "sample_id": 3841,
+      "timestamp": 30.0,
+      "raw_brain_state": "Right Lift",
+      "confidence": 0.843,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 11,
+      "sample_id": 4481,
+      "timestamp": 35.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.964,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 12,
+      "sample_id": 4737,
+      "timestamp": 37.0,
+      "raw_brain_state": "Right Push",
+      "confidence": 0.951,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 13,
+      "sample_id": 5377,
+      "timestamp": 42.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.951,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 14,
+      "sample_id": 5633,
+      "timestamp": 44.0,
+      "raw_brain_state": "Right Left",
+      "confidence": 0.981,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 15,
+      "sample_id": 6273,
+      "timestamp": 49.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.959,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 16,
+      "sample_id": 6529,
+      "timestamp": 51.0,
+      "raw_brain_state": "Right Right",
+      "confidence": 0.982,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 17,
+      "sample_id": 7169,
+      "timestamp": 56.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.95,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 18,
+      "sample_id": 7425,
+      "timestamp": 58.0,
+      "raw_brain_state": "Right Lift",
+      "confidence": 0.789,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 19,
+      "sample_id": 8065,
+      "timestamp": 63.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.977,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 20,
+      "sample_id": 8321,
+      "timestamp": 65.0,
+      "raw_brain_state": "Right Push",
+      "confidence": 0.971,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 21,
+      "sample_id": 8961,
+      "timestamp": 70.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.964,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 22,
+      "sample_id": 9217,
+      "timestamp": 72.0,
+      "raw_brain_state": "Right Drop",
+      "confidence": 0.881,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 23,
+      "sample_id": 9857,
+      "timestamp": 77.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.967,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 24,
+      "sample_id": 10113,
+      "timestamp": 79.0,
+      "raw_brain_state": "Right Pull",
+      "confidence": 0.81,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 25,
+      "sample_id": 10753,
+      "timestamp": 84.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.961,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 26,
+      "sample_id": 11009,
+      "timestamp": 86.0,
+      "raw_brain_state": "Right Drop",
+      "confidence": 0.885,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 27,
+      "sample_id": 11649,
+      "timestamp": 91.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.957,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 28,
+      "sample_id": 11905,
+      "timestamp": 93.0,
+      "raw_brain_state": "Right Right",
+      "confidence": 0.845,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 29,
+      "sample_id": 12545,
+      "timestamp": 98.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.955,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 30,
+      "sample_id": 12801,
+      "timestamp": 100.0,
+      "raw_brain_state": "Right Drop",
+      "confidence": 0.891,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 31,
+      "sample_id": 13441,
+      "timestamp": 105.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.992,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 32,
+      "sample_id": 13697,
+      "timestamp": 107.0,
+      "raw_brain_state": "Right Push",
+      "confidence": 0.834,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 33,
+      "sample_id": 14337,
+      "timestamp": 112.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.972,
+      "burst_length_frames": 256,
+      "burst_duration_seconds": 2.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 34,
+      "sample_id": 14593,
+      "timestamp": 114.0,
+      "raw_brain_state": "Right Right",
+      "confidence": 0.821,
+      "burst_length_frames": 640,
+      "burst_duration_seconds": 5.0,
+      "status": "verified"
+    },
+    {
+      "event_id": 35,
+      "sample_id": 15233,
+      "timestamp": 119.0,
+      "raw_brain_state": "Right Neutral",
+      "confidence": 0.988,
+      "burst_length_frames": 128,
+      "burst_duration_seconds": 1.0,
+      "status": "verified"
+    }
+  ]
+}
